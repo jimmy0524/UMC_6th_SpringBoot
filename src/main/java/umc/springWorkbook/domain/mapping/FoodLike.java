@@ -1,10 +1,11 @@
 package umc.springWorkbook.domain.mapping;
 
-import jakarta.persistence.*;
 import lombok.*;
 import umc.springWorkbook.domain.Food;
 import umc.springWorkbook.domain.Member;
 import umc.springWorkbook.domain.common.BaseEntity;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

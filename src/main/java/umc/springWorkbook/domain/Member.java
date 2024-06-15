@@ -1,12 +1,14 @@
 package umc.springWorkbook.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.springWorkbook.domain.common.BaseEntity;
 import umc.springWorkbook.domain.enums.Gender;
 import umc.springWorkbook.domain.enums.MemberStatus;
 import umc.springWorkbook.domain.mapping.FoodLike;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicUpdate
+@DynamicInsert
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +29,14 @@ public class Member extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(10)")
+    @Column
     private Timestamp birth;
 
-    @Column(columnDefinition = "VARCHAR(40)")
+    @Column(nullable = false, length = 40)
     private String address;
 
-    private Double latitude;
-
-    private Double longitude;
+    @Column(nullable = false, length = 40)
+    private String specAddress;
 
     @Builder.Default
     private Long point = 0L;

@@ -1,9 +1,9 @@
 package umc.springWorkbook.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 import umc.springWorkbook.domain.mapping.FoodLike;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

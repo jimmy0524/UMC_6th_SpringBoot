@@ -1,8 +1,9 @@
 package umc.springWorkbook.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 import umc.springWorkbook.domain.common.BaseEntity;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

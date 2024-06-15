@@ -24,27 +24,23 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
     private final FoodRepository foodRepository;
     private final MemberRepository memberRepository;
-    private final FoodLikeRepository foodLikeRepository;
 
     @Override
     @Transactional
     public Member joinMember(MemberRequest.JoinDto request) {
         Member member = MemberConverter.toMember(request);
 
-        Member savedMember = memberRepository.save(member);
-
         List<Food> foodList = request.getFoodLikeList().stream()
                 .map(food -> {
                     return foodRepository.findById(food).orElseThrow(() -> new FoodHandler(ErrorStatus.FOOD_NOT_FOUND));
                 }).toList();
-        //컨버터로 String으로 받았던 foodLikeList -> foodLike객체로 만들고,
+        //컨버터로 Long으로 받았던 foodLikeList -> foodLike객체로 만들고,
         //이 객체 리스트를 또 각 setMember 메서드 사용. foodLike 엔티티 저장.
         List<FoodLike> foodLikeList = FoodLikeConverter.toFoodLikeList(foodList);
         foodLikeList.forEach(foodLike -> {
-            foodLike.setMember(member);
-            foodLikeRepository.save(foodLike);});
+            foodLike.setMember(member);});
 
-        return savedMember;
+        return memberRepository.save(member);
     }
 
 }

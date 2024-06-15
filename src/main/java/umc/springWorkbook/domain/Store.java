@@ -1,10 +1,10 @@
 package umc.springWorkbook.domain;
 
-import jakarta.persistence.*;
 import lombok.*;
 import umc.springWorkbook.domain.common.BaseEntity;
 import umc.springWorkbook.domain.enums.FoodType;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +20,6 @@ public class Store extends BaseEntity {
 
     @Column(columnDefinition = "VARCHAR(40)")
     private String address;
-
-    private Double latitude;
-
-    private Double longitude;
 
     private Float averageStar;
 

@@ -1,7 +1,5 @@
 package umc.springWorkbook.apiPayload.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,8 @@ import umc.springWorkbook.apiPayload.ApiResponse;
 import umc.springWorkbook.apiPayload.code.ErrorReasonDTO;
 import umc.springWorkbook.apiPayload.code.status.ErrorStatus;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +37,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
     }
 
 
-//    @Override
+    @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
 

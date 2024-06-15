@@ -1,10 +1,11 @@
 package umc.springWorkbook.web.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import umc.springWorkbook.validation.annotation.ExistCategories;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class MemberRequest {
@@ -20,7 +21,10 @@ public class MemberRequest {
         String gender;
 
         @NotNull
-        String birth;
+        Integer birthYear;
+
+        @NotNull
+        Integer birthMonth;
 
         @NotNull
         Integer birthDay;
@@ -28,12 +32,10 @@ public class MemberRequest {
         @Size(min = 5, max = 20)
         String address;
 
-        @NotNull
-        Double latitude;
+        @Size(min = 5, max = 20)
+        String specAddress;
 
-        @NotNull
-        Double longitude;
-
+        @ExistCategories
         List<Long> foodLikeList;
     }
 }
