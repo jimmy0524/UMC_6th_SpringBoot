@@ -18,4 +18,13 @@ public class MemberResponse {
         Timestamp createdAt;
     }
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionChallengeResultDTO{
+        Long memberMissionId;
+        Timestamp createdAt;
+    }
+
 }

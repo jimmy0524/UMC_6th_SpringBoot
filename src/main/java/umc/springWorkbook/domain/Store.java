@@ -1,6 +1,7 @@
 package umc.springWorkbook.domain;
 
 import lombok.*;
+import org.apache.tomcat.jni.Address;
 import umc.springWorkbook.domain.common.BaseEntity;
 import umc.springWorkbook.domain.enums.FoodType;
 
@@ -17,6 +18,9 @@ public class Store extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "VARCHAR(20)")
+    private String name;
 
     @Column(columnDefinition = "VARCHAR(40)")
     private String address;
@@ -36,4 +40,8 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
+
+    public void setAddress(Region region) {
+        this.region = region;
+    }
 }

@@ -7,6 +7,7 @@ import umc.springWorkbook.domain.common.BaseEntity;
 import umc.springWorkbook.domain.enums.Gender;
 import umc.springWorkbook.domain.enums.MemberStatus;
 import umc.springWorkbook.domain.mapping.FoodLike;
+import umc.springWorkbook.domain.mapping.MemberMission;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -52,7 +53,7 @@ public class Member extends BaseEntity {
     private LocalDate inactiveDate;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Mission> missionList = new ArrayList<>();
+    private List<MemberMission> memberMissionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Alarm> alarmList = new ArrayList<>();

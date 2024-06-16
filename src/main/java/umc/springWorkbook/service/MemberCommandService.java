@@ -1,18 +1,24 @@
-package umc.springWorkbook.service.MemberService;
+package umc.springWorkbook.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.springWorkbook.apiPayload.code.status.ErrorStatus;
 import umc.springWorkbook.apiPayload.exception.handler.FoodHandler;
+import umc.springWorkbook.apiPayload.exception.handler.MemberHandler;
+import umc.springWorkbook.apiPayload.exception.handler.MissionHandler;
 import umc.springWorkbook.domain.Food;
 import umc.springWorkbook.domain.Member;
+import umc.springWorkbook.domain.Mission;
 import umc.springWorkbook.domain.mapping.FoodLike;
-import umc.springWorkbook.repository.FoodLikeRepository;
+import umc.springWorkbook.domain.mapping.MemberMission;
 import umc.springWorkbook.repository.FoodRepository;
+import umc.springWorkbook.repository.MemberMissionRepository;
 import umc.springWorkbook.repository.MemberRepository;
+import umc.springWorkbook.repository.MissionRepository;
 import umc.springWorkbook.web.converter.FoodLikeConverter;
 import umc.springWorkbook.web.converter.MemberConverter;
+import umc.springWorkbook.web.converter.MemberMissionConverter;
 import umc.springWorkbook.web.dto.MemberRequest;
 
 import java.util.List;
@@ -20,12 +26,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class MemberCommandServiceImpl implements MemberCommandService {
+public class MemberCommandService {
 
     private final FoodRepository foodRepository;
     private final MemberRepository memberRepository;
+    private final MissionRepository missionRepository;
+    private final MemberMissionRepository memberMissionRepository;
 
-    @Override
     @Transactional
     public Member joinMember(MemberRequest.JoinDto request) {
         Member member = MemberConverter.toMember(request);
@@ -43,4 +50,13 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         return memberRepository.save(member);
     }
 
+    @Transactional
+    public MemberMission challengeMission(Long memberId, Long missionId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+        Mission mission = missionRepository.findById(missionId).orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+        MemberMission memberMission = MemberMissionConverter.toMemberMission(member, mission);
+
+        return memberMissionRepository.save(memberMission);
+    }
 }

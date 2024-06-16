@@ -3,9 +3,12 @@ package umc.springWorkbook.domain;
 import lombok.*;
 import umc.springWorkbook.domain.common.BaseEntity;
 import umc.springWorkbook.domain.enums.MissionState;
+import umc.springWorkbook.domain.mapping.MemberMission;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,10 +23,6 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(20)")
     private String ownerNum;
 
-    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'WAITING'")
-    @Enumerated(EnumType.STRING)
-    private MissionState state;
-
     private Long point;
 
     @Column(columnDefinition = "VARCHAR(50)")
@@ -35,7 +34,6 @@ public class Mission extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
 }

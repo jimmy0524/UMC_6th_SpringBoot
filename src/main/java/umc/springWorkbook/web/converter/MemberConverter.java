@@ -1,7 +1,9 @@
 package umc.springWorkbook.web.converter;
 
 import umc.springWorkbook.domain.Member;
+import umc.springWorkbook.domain.Mission;
 import umc.springWorkbook.domain.enums.Gender;
+import umc.springWorkbook.domain.mapping.MemberMission;
 import umc.springWorkbook.web.dto.MemberRequest;
 import umc.springWorkbook.web.dto.MemberResponse;
 
@@ -34,9 +36,17 @@ public class MemberConverter {
                 .name(request.getName())
                 .build();
     }
+
     public static MemberResponse.JoinResultDTO toJoinResultDTO(Member member) {
         return MemberResponse.JoinResultDTO.builder()
                 .memberId(member.getId())
+                .createdAt(new Timestamp(System.currentTimeMillis()))
+                .build();
+    }
+
+    public static MemberResponse.MissionChallengeResultDTO toMissionChallengeResultDTO(MemberMission memberMission) {
+        return MemberResponse.MissionChallengeResultDTO.builder()
+                .memberMissionId(memberMission.getId())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
     }

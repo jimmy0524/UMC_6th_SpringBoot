@@ -4,6 +4,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
+import umc.springWorkbook.domain.enums.FoodType;
+import umc.springWorkbook.validation.annotation.ExistStore;
 
 import java.util.List;
 
@@ -17,6 +19,24 @@ public class StoreRequest {
 
         @NotNull
         Float star;
+
+        List<MultipartFile> images;
+    }
+
+    @Getter
+    public static class CreateDTO {
+
+        @NotBlank
+        String address;
+
+        @NotNull
+        FoodType category;
+
+        @NotNull
+        Long region;
+
+        @NotBlank
+        String name;
 
         List<MultipartFile> images;
     }

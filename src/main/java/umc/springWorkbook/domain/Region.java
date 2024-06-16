@@ -3,6 +3,8 @@ package umc.springWorkbook.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,4 +18,7 @@ public class Region {
 
     @Column(columnDefinition = "VARCHAR(20)")
     private String name;
+
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
+    private List<Store> storeList = new ArrayList<>();
 }

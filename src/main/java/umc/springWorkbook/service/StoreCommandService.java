@@ -1,18 +1,16 @@
-package umc.springWorkbook.service.StoreService;
+package umc.springWorkbook.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import umc.springWorkbook.apiPayload.code.status.ErrorStatus;
+import umc.springWorkbook.apiPayload.exception.handler.RegionHandler;
 import umc.springWorkbook.apiPayload.exception.handler.MemberHandler;
 import umc.springWorkbook.apiPayload.exception.handler.StoreHandler;
-import umc.springWorkbook.domain.Image;
-import umc.springWorkbook.domain.Review;
-import umc.springWorkbook.repository.ImageRepository;
-import umc.springWorkbook.repository.MemberRepository;
-import umc.springWorkbook.repository.ReviewRepository;
-import umc.springWorkbook.repository.StoreRepository;
+import umc.springWorkbook.domain.*;
+import umc.springWorkbook.repository.*;
 import umc.springWorkbook.web.converter.StoreConverter;
 import umc.springWorkbook.web.dto.StoreRequest;
 
@@ -22,14 +20,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class StoreCommandServiceImpl implements StoreCommandService {
+public class StoreCommandService {
 
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
     private final ImageRepository imageRepository;
+    private final RegionRepository regionRepository;
 
-    @Override
     @Transactional
     public Review createReview(Long memberId, Long storeId, StoreRequest.ReviewDTO request) {
         Review review = StoreConverter.toReview(request);
@@ -56,5 +54,18 @@ public class StoreCommandServiceImpl implements StoreCommandService {
         // 이미지 파일 저장 로직 구현 예정
         String imageUrl = "";
         return imageUrl;
+    }
+
+    @Transactional
+    public Store createStore(StoreRequest.CreateDTO request) {
+        Store store = StoreConverter.toCreate(request);
+
+        store.setAddress(regionRepository.findById(request.getRegion()).orElseThrow(() -> new RegionHandler(ErrorStatus.Region_NOT_FOUND)));
+
+        return storeRepository.save(store);
+    }
+
+    public Boolean existsById(Long id) {
+        return storeRepository.existsById(id);
     }
 }

@@ -17,4 +17,13 @@ public class StoreResponse {
         Long reviewId;
         Timestamp createdAt;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateStoreResultDTO{
+        Long storeId;
+        Timestamp createdAt;
+    }
 }
