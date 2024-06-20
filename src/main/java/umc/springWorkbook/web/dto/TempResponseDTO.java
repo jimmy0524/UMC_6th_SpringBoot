@@ -5,25 +5,21 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
-public class StoreResponse {
+public class TempResponseDTO {
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateReviewResultDTO{
-        Long reviewId;
-        Timestamp createdAt;
+    public static class TempTestDTO{
+        String testString;
     }
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateStoreResultDTO{
-        Long storeId;
-        Timestamp createdAt;
+    public static class TempExceptionDTO{
+        Integer flag;
     }
 }

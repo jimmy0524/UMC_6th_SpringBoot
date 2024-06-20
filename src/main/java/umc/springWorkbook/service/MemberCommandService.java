@@ -19,7 +19,7 @@ import umc.springWorkbook.repository.MissionRepository;
 import umc.springWorkbook.web.converter.FoodLikeConverter;
 import umc.springWorkbook.web.converter.MemberConverter;
 import umc.springWorkbook.web.converter.MemberMissionConverter;
-import umc.springWorkbook.web.dto.MemberRequest;
+import umc.springWorkbook.web.dto.MemberRequestDto;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class MemberCommandService {
     private final MemberMissionRepository memberMissionRepository;
 
     @Transactional
-    public Member joinMember(MemberRequest.JoinDto request) {
+    public Member joinMember(MemberRequestDto.JoinDto request) {
         Member member = MemberConverter.toMember(request);
 
         List<Food> foodList = request.getFoodLikeList().stream()

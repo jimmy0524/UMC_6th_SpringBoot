@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-public class MemberResponse {
+public class MemberResponseDTO {
 
     @Builder
     @Getter

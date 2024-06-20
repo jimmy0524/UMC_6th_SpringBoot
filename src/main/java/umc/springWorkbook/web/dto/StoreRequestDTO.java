@@ -5,11 +5,10 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import umc.springWorkbook.domain.enums.FoodType;
-import umc.springWorkbook.validation.annotation.ExistStore;
 
 import java.util.List;
 
-public class StoreRequest {
+public class StoreRequestDTO {
 
     @Getter
     public static class ReviewDTO {

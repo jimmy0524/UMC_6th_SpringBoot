@@ -11,7 +11,7 @@ import umc.springWorkbook.apiPayload.exception.handler.StoreHandler;
 import umc.springWorkbook.domain.*;
 import umc.springWorkbook.repository.*;
 import umc.springWorkbook.web.converter.StoreConverter;
-import umc.springWorkbook.web.dto.StoreRequest;
+import umc.springWorkbook.web.dto.StoreRequestDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class StoreCommandService {
     private final RegionRepository regionRepository;
 
     @Transactional
-    public Review createReview(Long memberId, Long storeId, StoreRequest.ReviewDTO request) {
+    public Review createReview(Long memberId, Long storeId, StoreRequestDTO.ReviewDTO request) {
         Review review = StoreConverter.toReview(request);
 
         review.setMember(memberRepository.findById(memberId).orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND)));
@@ -56,7 +56,7 @@ public class StoreCommandService {
     }
 
     @Transactional
-    public Store createStore(StoreRequest.CreateDTO request) {
+    public Store createStore(StoreRequestDTO.CreateDTO request) {
         Store store = StoreConverter.toStore(request);
 
         store.setAddress(regionRepository.findById(request.getRegion()).orElseThrow(() -> new RegionHandler(ErrorStatus.Region_NOT_FOUND)));

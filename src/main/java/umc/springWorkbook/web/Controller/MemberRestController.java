@@ -10,8 +10,8 @@ import umc.springWorkbook.domain.mapping.MemberMission;
 import umc.springWorkbook.service.MemberCommandService;
 import umc.springWorkbook.validation.annotation.AlreadyMission;
 import umc.springWorkbook.web.converter.MemberConverter;
-import umc.springWorkbook.web.dto.MemberRequest;
-import umc.springWorkbook.web.dto.MemberResponse;
+import umc.springWorkbook.web.dto.MemberRequestDto;
+import umc.springWorkbook.web.dto.MemberResponseDTO;
 
 @RestController
 @RequestMapping("/members")
@@ -23,14 +23,14 @@ public class MemberRestController {
 
     //회원가입
     @PostMapping("/join")
-    public ApiResponse<MemberResponse.JoinResultDTO> joinAPI(@RequestBody @Valid MemberRequest.JoinDto request) {
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> joinAPI(@RequestBody @Valid MemberRequestDto.JoinDto request) {
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 
     //미션을 도전중인 미션으로 추가
     @PostMapping("/{memberId}/mission/{missionId}")
-    public ApiResponse<MemberResponse.MissionChallengeResultDTO> challengeAPI(@PathVariable Long memberId, @AlreadyMission  @PathVariable Long missionId) {
+    public ApiResponse<MemberResponseDTO.MissionChallengeResultDTO> challengeAPI(@PathVariable Long memberId, @AlreadyMission  @PathVariable Long missionId) {
         MemberMission memberMission = memberCommandService.challengeMission(memberId, missionId);
         return ApiResponse.onSuccess(MemberConverter.toMissionChallengeResultDTO(memberMission));
     }

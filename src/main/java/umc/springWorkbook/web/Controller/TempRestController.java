@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import umc.springWorkbook.service.TempService.TempQueryService;
 import umc.springWorkbook.apiPayload.ApiResponse;
 import umc.springWorkbook.web.converter.TempConverter;
-import umc.springWorkbook.web.dto.TempResponse;
+import umc.springWorkbook.web.dto.TempResponseDTO;
 
 @RestController
 @RequestMapping("/temp")
@@ -18,12 +18,12 @@ public class TempRestController {
     private final TempQueryService tempQueryService;
 
     @GetMapping("/test")
-    public ApiResponse<TempResponse.TempTestDTO> testAPI() {
+    public ApiResponse<TempResponseDTO.TempTestDTO> testAPI() {
         return ApiResponse.onSuccess(TempConverter.toTempTestDTO());
     }
 
     @GetMapping("/exception")
-    public ApiResponse<TempResponse.TempExceptionDTO> exceptionAPI(@RequestParam Integer flag){
+    public ApiResponse<TempResponseDTO.TempExceptionDTO> exceptionAPI(@RequestParam Integer flag){
         tempQueryService.CheckFlag(flag);
         return ApiResponse.onSuccess(TempConverter.toTempExceptionDTO(flag));
     }

@@ -1,11 +1,10 @@
 package umc.springWorkbook.web.converter;
 
 import umc.springWorkbook.domain.Member;
-import umc.springWorkbook.domain.Mission;
 import umc.springWorkbook.domain.enums.Gender;
 import umc.springWorkbook.domain.mapping.MemberMission;
-import umc.springWorkbook.web.dto.MemberRequest;
-import umc.springWorkbook.web.dto.MemberResponse;
+import umc.springWorkbook.web.dto.MemberRequestDto;
+import umc.springWorkbook.web.dto.MemberResponseDTO;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ import java.util.Date;
 
 public class MemberConverter {
 
-    public static Member toMember(MemberRequest.JoinDto request) {
+    public static Member toMember(MemberRequestDto.JoinDto request) {
 
         // LocalDate 객체 생성
         LocalDate birthDate = LocalDate.of(request.getBirthYear(), request.getBirthMonth(), request.getBirthDay());
@@ -37,15 +36,15 @@ public class MemberConverter {
                 .build();
     }
 
-    public static MemberResponse.JoinResultDTO toJoinResultDTO(Member member) {
-        return MemberResponse.JoinResultDTO.builder()
+    public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member) {
+        return MemberResponseDTO.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
     }
 
-    public static MemberResponse.MissionChallengeResultDTO toMissionChallengeResultDTO(MemberMission memberMission) {
-        return MemberResponse.MissionChallengeResultDTO.builder()
+    public static MemberResponseDTO.MissionChallengeResultDTO toMissionChallengeResultDTO(MemberMission memberMission) {
+        return MemberResponseDTO.MissionChallengeResultDTO.builder()
                 .memberMissionId(memberMission.getId())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
