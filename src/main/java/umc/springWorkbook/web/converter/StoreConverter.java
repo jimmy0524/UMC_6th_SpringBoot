@@ -17,7 +17,7 @@ public class StoreConverter {
                             .build();
     }
 
-    public static Store toCreate(StoreRequest.CreateDTO request) {
+    public static Store toStore(StoreRequest.CreateDTO request) {
         return Store.builder()
                 .name(request.getName())
                 .address(request.getAddress())

@@ -3,7 +3,6 @@ package umc.springWorkbook.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import umc.springWorkbook.apiPayload.code.status.ErrorStatus;
 import umc.springWorkbook.apiPayload.exception.handler.RegionHandler;
@@ -58,7 +57,7 @@ public class StoreCommandService {
 
     @Transactional
     public Store createStore(StoreRequest.CreateDTO request) {
-        Store store = StoreConverter.toCreate(request);
+        Store store = StoreConverter.toStore(request);
 
         store.setAddress(regionRepository.findById(request.getRegion()).orElseThrow(() -> new RegionHandler(ErrorStatus.Region_NOT_FOUND)));
 

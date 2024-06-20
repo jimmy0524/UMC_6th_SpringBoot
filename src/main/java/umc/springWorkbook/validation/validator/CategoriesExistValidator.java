@@ -5,7 +5,6 @@ import javax.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.springWorkbook.apiPayload.code.status.ErrorStatus;
-import umc.springWorkbook.repository.FoodRepository;
 import umc.springWorkbook.service.FoodQueryService;
 import umc.springWorkbook.validation.annotation.ExistCategories;
 
