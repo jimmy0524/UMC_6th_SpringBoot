@@ -6,6 +6,7 @@ import umc.springWorkbook.domain.enums.MissionState;
 import umc.springWorkbook.domain.mapping.MemberMission;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(50)")
     private String content;
 
-    private LocalDate deadline;
+    private Timestamp deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
