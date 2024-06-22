@@ -1,6 +1,8 @@
 package umc.springWorkbook.web.converter;
 
+import org.springframework.data.domain.Page;
 import umc.springWorkbook.domain.Member;
+import umc.springWorkbook.domain.Review;
 import umc.springWorkbook.domain.enums.Gender;
 import umc.springWorkbook.domain.mapping.MemberMission;
 import umc.springWorkbook.web.dto.MemberRequestDto;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberConverter {
 
@@ -47,6 +51,32 @@ public class MemberConverter {
         return MemberResponseDTO.MissionChallengeResultDTO.builder()
                 .memberMissionId(memberMission.getId())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
+                .build();
+    }
+
+    public static MemberResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review){
+        return MemberResponseDTO.ReviewPreViewDTO.builder()
+                .ownerNickname(review.getMember().getName())
+                .star(review.getStar())
+                .createdAt(review.getCreatedAt())
+                .content(review.getContent())
+                .storeName(review.getStore().getName())
+                .storeId(review.getStore().getId())
+                .build();
+    }
+
+    public static MemberResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewList){
+
+        List<MemberResponseDTO.ReviewPreViewDTO> reviewPreViewDTOList = reviewList.stream()
+                .map(MemberConverter::reviewPreViewDTO).collect(Collectors.toList());
+
+        return MemberResponseDTO.ReviewPreViewListDTO.builder()
+                .isLast(reviewList.isLast())
+                .isFirst(reviewList.isFirst())
+                .totalPage(reviewList.getTotalPages())
+                .totalElements(reviewList.getTotalElements())
+                .listSize(reviewPreViewDTOList.size())
+                .reviewList(reviewPreViewDTOList)
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class MemberResponseDTO {
 
@@ -25,6 +26,32 @@ public class MemberResponseDTO {
     public static class MissionChallengeResultDTO{
         Long memberMissionId;
         Timestamp createdAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReviewPreViewListDTO{
+        List<MemberResponseDTO.ReviewPreViewDTO> reviewList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReviewPreViewDTO{
+        String ownerNickname;
+        Float star;
+        String content;
+        Timestamp createdAt;
+        String storeName;
+        Long storeId;
     }
 
 }

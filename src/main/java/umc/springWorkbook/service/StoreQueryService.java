@@ -31,4 +31,11 @@ public class StoreQueryService {
         Page<Review> StorePage = reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
         return StorePage;
     }
+
+    public boolean checkPage(Integer value) {
+        if(value < 0){
+            return false;
+        }
+        return true;
+    }
 }
