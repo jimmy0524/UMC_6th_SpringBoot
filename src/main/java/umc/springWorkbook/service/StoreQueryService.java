@@ -19,7 +19,6 @@ import java.util.Optional;
 public class StoreQueryService {
 
     private final StoreRepository storeRepository;
-
     private final ReviewRepository reviewRepository;
     private final MissionRepository missionRepository;
 
@@ -27,17 +26,17 @@ public class StoreQueryService {
         return storeRepository.findById(id);
     }
 
-    public Page<Review> getReviewList(Long StoreId, Integer page) {
+    public Page<Review> getReviewList(Long storeId, Integer page) {
 
-        Store store = storeRepository.findById(StoreId).get();
+        Store store = storeRepository.findById(storeId).get();
 
         Page<Review> StorePage = reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
         return StorePage;
     }
 
-    public Page<Mission> getMissionList(Long StoreId, Integer page) {
+    public Page<Mission> getMissionList(Long storeId, Integer page) {
 
-        Store store = storeRepository.findById(StoreId).get();
+        Store store = storeRepository.findById(storeId).get();
         Page<Mission> MissionPage = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
         return MissionPage;
     }

@@ -2,11 +2,13 @@ package umc.springWorkbook.web.converter;
 
 import org.springframework.data.domain.Page;
 import umc.springWorkbook.domain.Member;
+import umc.springWorkbook.domain.Mission;
 import umc.springWorkbook.domain.Review;
 import umc.springWorkbook.domain.enums.Gender;
 import umc.springWorkbook.domain.mapping.MemberMission;
 import umc.springWorkbook.web.dto.MemberRequestDto;
 import umc.springWorkbook.web.dto.MemberResponseDTO;
+import umc.springWorkbook.web.dto.StoreResponseDTO;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -77,6 +79,32 @@ public class MemberConverter {
                 .totalElements(reviewList.getTotalElements())
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+
+    public static MemberResponseDTO.MissionPreViewDTO missionPreViewDTO(MemberMission mission){
+        return MemberResponseDTO.MissionPreViewDTO.builder()
+                .point(mission.getMission().getPoint())
+                .content(mission.getMission().getContent())
+                .deadline(mission.getMission().getDeadline())
+                .createdAt(mission.getMission().getCreatedAt())
+                .StoreName(mission.getMission().getStore().getName())
+                .storeId(mission.getMission().getStore().getId())
+                .build();
+    }
+
+    public static MemberResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<MemberMission> missionList){
+
+        List<MemberResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(MemberConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return MemberResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
                 .build();
     }
 }
